@@ -16,7 +16,7 @@ Fields to Retrieve:
 
 ### SELECT
 
-### PARTY.party\_id,
+### person.party\_id,
 
 ### first\_name,
 
@@ -28,11 +28,7 @@ Fields to Retrieve:
 
 ### party\_role.created\_stamp AS entry\_date
 
-### FROM party
-
-### LEFT JOIN PERSON
-
-### ON PARTY.PARTY\_ID = PERSON.PARTY\_id
+### FROM PERSON
 
 ### LEFT JOIN party\_contact\_mech
 
