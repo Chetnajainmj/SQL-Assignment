@@ -21,15 +21,21 @@ last_name,
 info_string AS email,
 contact_number AS phone,
 party_role.created_stamp AS entry_date
+
 FROM PERSON
+
 LEFT JOIN party_contact_mech
 ON person.party_id = party_contact_mech.party_id
+
 LEFT JOIN contact_mech
 ON party_contact_mech.contact_mech_id = contact_mech.contact_MECH_ID
+
 LEFT JOIN telecom_Number
 ON party_contact_mech.contact_mech_id = telecom_number.contact_MECH_ID
+
 JOIN party_role
 ON person.party_id = party_role.party_id
+
 WHERE party_role.created_stamp >= '2023-06-01'
 AND party_role.created_stamp <= '2023-06-30'
 AND PARTY_ROLE.role_type_id= "CUSTOMER";
@@ -312,15 +318,20 @@ Fields to Retrieve:
 SELECT
 count(*) AS total_bopis_orders_items,
 sum(UNIT_PRICE * order_item.quantity) AS revenue
+
 FROM order_item_ship_group_assoc
+
 JOIN order_item_ship_group
 ON order_item_ship_group_assoc.ORDER_ID = order_item_ship_group.ORDER_ID
 AND order_item_ship_group_assoc.SHIP_GROUP_SEQ_ID = order_item_ship_group.SHIP_GROUP_SEQ_ID
+
 JOIN order_item
 ON order_item_ship_group_assoc.ORDER_ID = order_item.ORDER_ID
 AND order_item_ship_group_assoc.ORDER_ITEM_SEQ_ID = order_item.ORDER_ITEM_SEQ_ID
+
 JOIN order_header
 ON Order_header.ORDER_ID = order_item.order_id
+
 WHERE SHIPMENT_METHOD_TYPE_ID LIKE "STOREPICKUP" and SALES_CHANNEL_ENUM_ID="WEB_SALES_CHANNEL"
 AND year(ORDER_DATE) = year(current_date)-1;
 
