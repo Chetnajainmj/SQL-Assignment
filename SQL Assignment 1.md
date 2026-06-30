@@ -14,45 +14,25 @@ Fields to Retrieve:
 *   PHONE
 *   ENTRY\_DATE
 
-### SELECT
-
-### person.party\_id,
-
-### first\_name,
-
-### last\_name,
-
-### info\_string AS email,
-
-### contact\_number AS phone,
-
-### party\_role.created\_stamp AS entry\_date
-
-### FROM PERSON
-
-### LEFT JOIN party\_contact\_mech
-
-### ON party.party\_id = party\_contact\_mech.party\_id
-
-### LEFT JOIN contact\_mech
-
-### ON party\_contact\_mech.contact\_mech\_id = contact\_mech.contact\_MECH\_ID
-
-### LEFT JOIN telecom\_Number
-
-### ON party\_contact\_mech.contact\_mech\_id = telecom\_number.contact\_MECH\_ID
-
-### JOIN party\_role
-
-### ON party.party\_id = party\_role.party\_id
-
-### WHERE party\_role.created\_stamp >= '2023-06-01'
-
-### AND party\_role.created\_stamp <= '2023-06-30'
-
-### AND PARTY\_ROLE.role\_type\_id= "CUSTOMER";
-
-### 2 List All Active Physical Products
+SELECT
+person.party_id,
+first_name,
+last_name,
+info_string AS email,
+contact_number AS phone,
+party_role.created_stamp AS entry_date
+FROM PERSON
+LEFT JOIN party_contact_mech
+ON person.party_id = party_contact_mech.party_id
+LEFT JOIN contact_mech
+ON party_contact_mech.contact_mech_id = contact_mech.contact_MECH_ID
+LEFT JOIN telecom_Number
+ON party_contact_mech.contact_mech_id = telecom_number.contact_MECH_ID
+JOIN party_role
+ON person.party_id = party_role.party_id
+WHERE party_role.created_stamp >= '2023-06-01'
+AND party_role.created_stamp <= '2023-06-30'
+AND PARTY_ROLE.role_type_id= "CUSTOMER";
 
 Business Problem:  
 Merchandising teams often need a list of all physical products to manage logistics, warehousing, and shipping.
