@@ -309,33 +309,20 @@ Fields to Retrieve:
 *   TOTAL ORDERS
 *   TOTAL REVENUE
 
-### SELECT
-
-### count(\*) AS total\_bopis\_orders\_items,
-
-### sum(UNIT\_PRICE \* order\_item.quantity) AS revenue
-
-### FROM order\_item\_ship\_group\_assoc
-
-### JOIN order\_item\_ship\_group
-
-### ON order\_item\_ship\_group\_assoc.ORDER\_ID = order\_item\_ship\_group.ORDER\_ID
-
-### AND order\_item\_ship\_group\_assoc.SHIP\_GROUP\_SEQ\_ID = order\_item\_ship\_group.SHIP\_GROUP\_SEQ\_ID
-
-### JOIN order\_item
-
-### ON order\_item\_ship\_group\_assoc.ORDER\_ID = order\_item.ORDER\_ID
-
-### AND order\_item\_ship\_group\_assoc.ORDER\_ITEM\_SEQ\_ID = order\_item.ORDER\_ITEM\_SEQ\_ID
-
-### JOIN order\_header
-
-### ON Order\_header.ORDER\_ID = order\_item.order\_id
-
-### WHERE SHIPMENT\_METHOD\_TYPE\_ID LIKE "STOREPICKUP"
-
-### AND year(ORDER\_DATE) = year(current\_date) - 1;
+SELECT
+count(*) AS total_bopis_orders_items,
+sum(UNIT_PRICE * order_item.quantity) AS revenue
+FROM order_item_ship_group_assoc
+JOIN order_item_ship_group
+ON order_item_ship_group_assoc.ORDER_ID = order_item_ship_group.ORDER_ID
+AND order_item_ship_group_assoc.SHIP_GROUP_SEQ_ID = order_item_ship_group.SHIP_GROUP_SEQ_ID
+JOIN order_item
+ON order_item_ship_group_assoc.ORDER_ID = order_item.ORDER_ID
+AND order_item_ship_group_assoc.ORDER_ITEM_SEQ_ID = order_item.ORDER_ITEM_SEQ_ID
+JOIN order_header
+ON Order_header.ORDER_ID = order_item.order_id
+WHERE SHIPMENT_METHOD_TYPE_ID LIKE "STOREPICKUP" and SALES_CHANNEL_ENUM_ID="WEB_SALES_CHANNEL"
+AND year(ORDER_DATE) = year(current_date)-1;
 
 ### 10 Canceled Orders (Last Month)
 
