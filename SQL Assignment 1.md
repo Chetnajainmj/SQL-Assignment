@@ -1,7 +1,6 @@
 SQL Assignment - 1
 
 ### 1 New Customers Acquired in June 2023
-
   
 Business Problem:  
 The marketing team ran a campaign in June 2023 and wants to see how many new customers signed up during that period.
