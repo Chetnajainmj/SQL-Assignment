@@ -17,24 +17,31 @@ Fields to Retrieve:
 SELECT 
 
   person.party_id, 
+ 
   first_name, 
+  
   last_name, 
-  info_string AS email, 
-  contact_number AS phone, 
+
+  max(
+    case when contact_mech_purpose_type_id = "PRIMARY_EMAIL" then info_string end
+  ) AS email, 
+ 
+  max(
+    case when contact_mech_purpose_type_id = "PRIMARY_PHONE" then contact_number end
+  ) AS phone, 
+ 
   party_role.created_stamp AS entry_date 
 
 FROM 
-  
+ 
   PERSON 
  
   LEFT JOIN party_contact_mech_purpose ON person.party_id = party_contact_mech_purpose.party_id 
- 
   and (
     party_contact_mech_purpose.CONTACT_MECH_PURPOSE_TYPE_ID in (
       "PRIMARY_EMAIL", "PRIMARY_PHONE"
     )
   ) 
-
   and (
     party_contact_mech_purpose.THRU_DATE is null 
     or party_contact_mech_purpose.THRU_DATE > now()
@@ -47,12 +54,17 @@ FROM
   JOIN party_role ON person.party_id = party_role.party_id 
 
 WHERE 
-  
-  party_role.created_stamp >= '2023-06-01' 
-
-  AND party_role.created_stamp <= '2023-06-30' 
  
-  AND PARTY_ROLE.role_type_id = "CUSTOMER";
+  party_role.created_stamp >= '2023-06-01' 
+  AND party_role.created_stamp <= '2026-06-30' 
+  AND PARTY_ROLE.role_type_id = "CUSTOMER" 
+
+group by 
+  person.party_id, 
+  first_name, 
+  last_name, 
+  entry_date;
+
 
 
 Business Problem:  
