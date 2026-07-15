@@ -120,29 +120,29 @@ Fields to Retrieve:
 *   HOTWAX\_ID
 *   ERP\_ID or NETSUITE\_ID (depending on naming)
 
-**SELECT**
+SELECT
 
-**product\_id,**
+p.product_id,
 
-**CASE**
+max(CASE
 
-**WHEN good\_identification\_type\_id ="SHOPIFY\_PROD\_ID"**
+WHEN good_identification_type_id ="SHOPIFY_PROD_ID"
 
-**THEN id\_value**
+THEN id_value
 
-**END AS shopify\_id,**
+END) AS shopify_id,
 
-**CASE**
+max(CASE
 
-**WHEN good\_identification\_type\_id = "ERP\_ID "**
+WHEN good_identification_type_id = "ERP_ID"
 
-**THEN id\_value**
+THEN id_value
 
-**END AS ERP\_id,**
+END) AS ERP_id,
 
-**PRODUCT\_ID AS HOTWAX\_id**
+p.PRODUCT_ID AS HOTWAX_id
 
-**FROM GOOD\_IDENTIFICATION;**
+FROM product p left join GOOD_IDENTIFICATION g on p.product_id=g.product_id group by p.product_id;
 
 ### 5 Completed Orders in August 2023
 
